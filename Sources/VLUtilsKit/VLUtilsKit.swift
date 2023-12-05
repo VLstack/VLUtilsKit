@@ -39,4 +39,28 @@ static func animate<Result>(_ animation: Animation? = .default,
  return try withAnimation(animation, body)
 }
  
+public
+static func delay(duration: CGFloat,
+                  callback: @escaping () -> Void )
+{
+ DispatchQueue.main.asyncAfter(deadline: .now() + duration)
+ {
+  callback()
+ }
+}
+
+public
+static func delay(duration: CGFloat,
+                  animation: Animation,
+                  callback: @escaping () -> Void )
+{
+ DispatchQueue.main.asyncAfter(deadline: .now() + duration)
+ {
+  VLUtils.animate(animation)
+  {
+   callback()
+  }
+ }
+}
+ 
 }
