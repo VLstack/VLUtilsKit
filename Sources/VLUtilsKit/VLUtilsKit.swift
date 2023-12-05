@@ -23,7 +23,20 @@ public
 func animate<Result>(_ animation: Animation? = .default,
                      _ body: () throws -> Result) rethrows -> Result
 {
+ return try VLUtils.animate(animation, body)
+}
+
+public
+enum VLUtils
+{
+
+public
+static func animate<Result>(_ animation: Animation? = .default,
+                     _ body: () throws -> Result) rethrows -> Result
+{
  if UIAccessibility.isReduceMotionEnabled { return try body() }
 
  return try withAnimation(animation, body)
+}
+ 
 }
