@@ -40,7 +40,7 @@ static func animate<Result>(_ animation: Animation? = .default,
 }
  
 public
-static func delay(duration: CGFloat,
+static func delay(_ duration: CGFloat,
                   callback: @escaping () -> Void )
 {
  DispatchQueue.main.asyncAfter(deadline: .now() + duration)
@@ -50,7 +50,7 @@ static func delay(duration: CGFloat,
 }
 
 public
-static func delay(duration: CGFloat,
+static func delay(_ duration: CGFloat,
                   animation: Animation,
                   callback: @escaping () -> Void )
 {
