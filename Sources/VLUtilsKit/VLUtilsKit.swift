@@ -19,48 +19,41 @@ extension NSAccessibility
 /// property of the thread's current `Transaction`
 /// if "Reduce Motion" setting is "on" this function returns the provided View body
 @available(*, deprecated, message: "use VLUtils.animate instead")
-public
-func animate<Result>(_ animation: Animation? = .default,
-                     _ body: () throws -> Result) rethrows -> Result
+public func animate<Result>(_ animation: Animation? = .default,
+                            _ body: () throws -> Result) rethrows -> Result
 {
  return try VLUtils.animate(animation, body)
 }
 
-public
-enum VLUtils
+public enum VLUtils
 {
-
-public
-static func animate<Result>(_ animation: Animation? = .default,
-                     _ body: () throws -> Result) rethrows -> Result
-{
- if UIAccessibility.isReduceMotionEnabled { return try body() }
-
- return try withAnimation(animation, body)
-}
- 
-public
-static func delay(_ duration: CGFloat,
-                  callback: @escaping () -> Void )
-{
- DispatchQueue.main.asyncAfter(deadline: .now() + duration)
+ public static func animate<Result>(_ animation: Animation? = .default,
+                                    _ body: () throws -> Result) rethrows -> Result
  {
-  callback()
+  if UIAccessibility.isReduceMotionEnabled { return try body() }
+
+  return try withAnimation(animation, body)
  }
-}
-
-public
-static func delay(_ duration: CGFloat,
-                  animation: Animation,
-                  callback: @escaping () -> Void )
-{
- DispatchQueue.main.asyncAfter(deadline: .now() + duration)
+  
+ public static func delay(_ duration: CGFloat,
+                          callback: @escaping () -> Void )
  {
-  VLUtils.animate(animation)
+  DispatchQueue.main.asyncAfter(deadline: .now() + duration)
   {
    callback()
   }
  }
-}
- 
+
+ public static func delay(_ duration: CGFloat,
+                          animation: Animation,
+                          callback: @escaping () -> Void )
+ {
+  DispatchQueue.main.asyncAfter(deadline: .now() + duration)
+  {
+   VLUtils.animate(animation)
+   {
+    callback()
+   }
+  }
+ }
 }
