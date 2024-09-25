@@ -19,6 +19,7 @@ extension NSAccessibility
 /// property of the thread's current `Transaction`
 /// if "Reduce Motion" setting is "on" this function returns the provided View body
 @available(*, deprecated, message: "use VLUtils.animate instead")
+@MainActor
 public func animate<Result>(_ animation: Animation? = .default,
                             _ body: () throws -> Result) rethrows -> Result
 {
@@ -27,6 +28,7 @@ public func animate<Result>(_ animation: Animation? = .default,
 
 public enum VLUtils
 {
+ @MainActor
  public static func animate<Result>(_ animation: Animation? = .default,
                                     _ body: () throws -> Result) rethrows -> Result
  {
